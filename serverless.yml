@@ -23,9 +23,16 @@ functions:
     handler: api/create.create
     events:
       - http:
-          path: api
+          path: data
           method: post
           cors: true
+  retrieve:
+    handler: api/retrieve.retrieve
+    events:
+      - http:
+            path: data/{id}/{uid}
+            method: get
+            cors: true
 
 resources:
   Resources:

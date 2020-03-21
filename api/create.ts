@@ -17,8 +17,12 @@ module.exports.create = (event, context, callback) => {
     }
 
     if ( errors.length > 0 ) {
+        const response = {
+            statusCode: 400,
+            body: JSON.stringify({message: JSON.stringify({errors: errors})})
+        };
         console.error('Invalid data');
-        callback('Error', new Error(JSON.stringify({errors: errors})));
+        callback(null, response);
         return
     }
 
@@ -29,17 +33,21 @@ module.exports.create = (event, context, callback) => {
 
     dynamoDb.put(params, (error, result) => {
         if ( error ) {
-            console.error(error);
-            callback(new Error('Could not create entry.'));
-            return
+            const response = {
+                statusCode: 400,
+                body: JSON.stringify({message: error.message})
+            };
+            console.error(error.message);
+            callback(null, response);
+        } else {
+            const response = {
+                statusCode: 201,
+                headers: {
+                    'Location': `data/${data['id']}/${data['user-id']}`
+                },
+                body: JSON.stringify(params.Item)
+            };
+            callback(null, response);
         }
-
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify(params.Item)
-        };
-
-        callback(null, response);
-        return(response);
     })
 };
