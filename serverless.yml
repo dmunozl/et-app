@@ -19,10 +19,13 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/data"
 
 functions:
-  hello:
-    handler: handler.hello
+  create:
+    handler: api/create.create
     events:
-      - http: GET hello
+      - http:
+          path: api
+          method: post
+          cors: true
 
 resources:
   Resources:

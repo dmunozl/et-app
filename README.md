@@ -1,7 +1,6 @@
 # ET APP
 
-Test application. Simple serverless framework API using TypeScript (still unimplemented
-at the time of writing), and AWS DynamoDB.
+Test application. Simple serverless REST API using TypeScript, and AWS DynamoDB.
 
 ## Implementation
 
