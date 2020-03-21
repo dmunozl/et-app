@@ -12,14 +12,14 @@ module.exports.create = (event, context, callback) => {
 
     for ( const expected_param of expected_params ) {
         if (typeof data[expected_param] !== "string") {
-            errors.push(`Invalid or missing ${expected_param}. Could not create entry.`);
+            errors.push(`Invalid or missing ${expected_param}. Could not create Item.`);
         }
     }
 
     if ( errors.length > 0 ) {
         const response = {
             statusCode: 400,
-            body: JSON.stringify({message: JSON.stringify({errors: errors})})
+            body: JSON.stringify({messages: errors})
         };
         console.error('Invalid data');
         callback(null, response);

@@ -4,19 +4,13 @@ import { DynamoDB } from 'aws-sdk'
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
-module.exports.retrieve = (event, context, callback) => {
-    const id = event.pathParameters.id;
-    const user_id = event.pathParameters.uid;
+module.exports.list = (event, context, callback) => {
 
     const params = {
         TableName: 'data',
-        Key: {
-            'id': id,
-            'user-id': user_id
-        }
     };
 
-    dynamoDb.get(params, (error, data) => {
+    dynamoDb.scan(params, (error, data) => {
         if ( error ) {
             const response = {
                 statusCode: 400,
@@ -24,18 +18,18 @@ module.exports.retrieve = (event, context, callback) => {
             };
             console.error(error.message);
             callback(null, response);
-        } else if ( data.Item ) {
+        } else if ( data.Items ) {
             const response = {
                 statusCode: 200,
-                body: JSON.stringify(data.Item)
+                body: JSON.stringify({data: data.Items})
             };
             callback(null, response);
         } else {
             const response = {
                 statusCode: 400,
-                body: JSON.stringify({message: 'Item does not exist'})
+                body: JSON.stringify({message: 'No Items.'})
             };
-            console.error('Item does not exist.');
+            console.error('No Items.');
             callback(null, response);
         }
     })

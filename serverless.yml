@@ -33,6 +33,20 @@ functions:
             path: data/{id}/{uid}
             method: get
             cors: true
+  list:
+    handler: api/list.list
+    events:
+      - http:
+          path: data
+          method: get
+          cors: true
+  delete:
+    handler: api/delete.delete
+    events:
+      - http:
+          path: data/{id}/{uid}
+          method: delete
+          cors: true
 
 resources:
   Resources:
