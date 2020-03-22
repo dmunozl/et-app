@@ -1,0 +1,22 @@
+{
+  "name": "et-app",
+  "version": "1.0.0",
+  "description": "Test application. Simple serverless REST API using TypeScript, and AWS DynamoDB.",
+  "main": "",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.643.0",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "test": "echo \\\"Error: no tests specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmunozl/et-app.git"
+  }
+}

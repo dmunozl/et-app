@@ -4,7 +4,7 @@ import { DynamoDB } from 'aws-sdk'
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
-module.exports.create = (event, context, callback) => {
+export const create = (event, context, callback) => {
     const data = JSON.parse(event.body);
 
     const expected_params = ['id', 'name', 'vat-number', 'user-id'];
@@ -22,8 +22,7 @@ module.exports.create = (event, context, callback) => {
             body: JSON.stringify({messages: errors})
         };
         console.error('Invalid data');
-        callback(null, response);
-        return
+        return callback(null, response);
     }
 
     const params = {
@@ -38,7 +37,7 @@ module.exports.create = (event, context, callback) => {
                 body: JSON.stringify({message: error.message})
             };
             console.error(error.message);
-            callback(null, response);
+            return callback(null, response);
         } else {
             const response = {
                 statusCode: 201,
@@ -47,7 +46,7 @@ module.exports.create = (event, context, callback) => {
                 },
                 body: JSON.stringify(params.Item)
             };
-            callback(null, response);
+            return callback(null, response);
         }
     })
 };

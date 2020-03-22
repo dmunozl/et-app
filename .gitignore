@@ -8,3 +8,4 @@ jspm_packages
 
 # JavaScript files
 *.js
+!jest.config.js
