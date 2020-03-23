@@ -2,15 +2,14 @@
 
 import { DynamoDB } from 'aws-sdk'
 
-const dynamoDb = new DynamoDB.DocumentClient();
-
-module.exports.list = (event, context, callback) => {
+export const list = (event:any, context:any, callback:any) => {
+    const dynamoDb = new DynamoDB.DocumentClient();
 
     const params = {
         TableName: 'data',
     };
 
-    dynamoDb.scan(params, (error, data) => {
+    return dynamoDb.scan(params, (error, data) => {
         if ( error ) {
             const response = {
                 statusCode: 400,

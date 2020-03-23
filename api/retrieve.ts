@@ -2,9 +2,8 @@
 
 import { DynamoDB } from 'aws-sdk'
 
-const dynamoDb = new DynamoDB.DocumentClient();
-
-module.exports.retrieve = (event, context, callback) => {
+export const retrieve = (event:any, context:any, callback:any) => {
+    const dynamoDb = new DynamoDB.DocumentClient();
     const id = event.pathParameters.id;
     const user_id = event.pathParameters.uid;
 
@@ -16,7 +15,7 @@ module.exports.retrieve = (event, context, callback) => {
         }
     };
 
-    dynamoDb.get(params, (error, data) => {
+    return dynamoDb.get(params, (error, data) => {
         if ( error ) {
             const response = {
                 statusCode: 400,

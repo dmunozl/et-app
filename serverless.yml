@@ -41,7 +41,7 @@ functions:
           method: get
           cors: true
   delete:
-    handler: api/delete.delete
+    handler: api/delete.del
     events:
       - http:
           path: data/{id}/{uid}

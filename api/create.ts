@@ -2,9 +2,8 @@
 
 import { DynamoDB } from 'aws-sdk'
 
-const dynamoDb = new DynamoDB.DocumentClient();
-
-export const create = (event, context, callback) => {
+export const create = (event:any, context:any, callback:any) => {
+    const dynamoDb = new DynamoDB.DocumentClient();
     const data = JSON.parse(event.body);
 
     const expected_params = ['id', 'name', 'vat-number', 'user-id'];
@@ -30,14 +29,14 @@ export const create = (event, context, callback) => {
         Item: data
     };
 
-    dynamoDb.put(params, (error, result) => {
+    return dynamoDb.put(params, (error, result) => {
         if ( error ) {
             const response = {
                 statusCode: 400,
                 body: JSON.stringify({message: error.message})
             };
             console.error(error.message);
-            return callback(null, response);
+            callback(null, response);
         } else {
             const response = {
                 statusCode: 201,
@@ -46,7 +45,7 @@ export const create = (event, context, callback) => {
                 },
                 body: JSON.stringify(params.Item)
             };
-            return callback(null, response);
+            callback(null, response);
         }
     })
 };

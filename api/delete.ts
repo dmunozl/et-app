@@ -2,9 +2,8 @@
 
 import { DynamoDB } from 'aws-sdk'
 
-const dynamoDb = new DynamoDB.DocumentClient();
-
-module.exports.delete = (event, context, callback) => {
+export const del = (event:any, context:any, callback:any) => {
+    const dynamoDb = new DynamoDB.DocumentClient();
     const id = event.pathParameters.id;
     const user_id = event.pathParameters.uid;
 
@@ -16,7 +15,7 @@ module.exports.delete = (event, context, callback) => {
         }
     };
 
-    dynamoDb.delete(params, (error, data) => {
+    return dynamoDb.delete(params, (error, data) => {
         if ( error ) {
             const response = {
                 statusCode: 400,
